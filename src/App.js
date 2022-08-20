@@ -18,6 +18,7 @@ import { CycberBugTemplate } from "./template/HomeTemplate/CycberBugTemplate";
 import indexCycberbug from "./template/HomeTemplate/indexCycberbug";
 import CreateProject from "./template/Page/Cycberbug/CreateProject/CreateProject";
 import NewProject from "./template/Page/Cycberbug/CreateProject/NewProject";
+import ProjectManager from "./template/Page/ProjectManager/ProjectManager";
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -31,6 +32,11 @@ function App() {
         <LoginTemplate exact path="/new" Component={NewProject} />
         <HomeTemplate exact path="/" Component={Form} />
         <CycberBugTemplate exact path="/cycberBug" Component={indexCycberbug} />
+        <CycberBugTemplate
+          exact
+          path="/projectManager"
+          Component={ProjectManager}
+        />
         <CycberBugTemplate
           exact
           path="/createProject"

@@ -9,7 +9,7 @@ import {
   select,
 } from "@redux-saga/core/effects";
 import { USER_SIGN_API } from "../../constants/CyberBugs/CyberBug";
-import { cyberbugsService } from "../../services/CyberBugSignin";
+import { cyberbugsService } from "../../services/cyberbugsService";
 import { TOKEN_CYBERSOFT, USER_LOGIN } from "../../services/configURL";
 import { history } from "../../util/lib/history";
 function* signinSaga(action) {

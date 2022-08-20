@@ -8,20 +8,27 @@ import {
   put,
   select,
 } from "@redux-saga/core/effects";
-import { USER_SIGN_API } from "../../constants/CyberBugs/CyberBug";
+import {
+  CREATE_PROJECT_SAGA,
+  USER_SIGN_API,
+} from "../../constants/CyberBugs/CyberBug";
 import { cyberbugsService } from "../../services/cyberbugsService";
 import { TOKEN_CYBERSOFT, USER_LOGIN } from "../../services/configURL";
 import { history } from "../../util/lib/history";
-function* getAllCategory(action) {
+function* createProjectSaga(action) {
   yield delay(500);
   try {
-    const { data, status } = yield cyberbugsService.getAllProductCategory();
-    console.log(data);
+    const { data, status } = yield cyberbugsService.createProject(
+      action.newProject
+    );
+
     yield put({
-      type: "ADD_ARRCATEGORY",
-      data: data.content,
+      type: USER_LOGIN,
+      userLogin: data.content,
     });
+
     // let history = yield select((state) => state.HistoryReducer.history);
+    history.push("/");
   } catch (error) {
     if (error.response) {
       console.log(error.response);
@@ -33,6 +40,6 @@ function* getAllCategory(action) {
   }
 }
 
-export function* theodoiGetAllCategory() {
-  yield takeLatest("GET__ALL__PROJECT__CATEGORY", getAllCategory);
+export function* theoDoicreateProjectSaga() {
+  yield takeLatest(CREATE_PROJECT_SAGA, createProjectSaga);
 }

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const BASE_URL = "https://casestudy.cyberlearn.vn/api";
-export const TOKEN_CYBERSOFT = "access_token";
+export const TOKEN_CYBERSOFT = "ACCESS_TOKEN";
 export const USER_LOGIN = "userLogin";
 let timeRequestMax;
 

@@ -34,6 +34,16 @@ const MenuCycberBug = () => {
             Create Project
           </NavLink>
         </div>
+        <div>
+          <i className="fa fa-cog" />
+          <NavLink
+            className="text-dark"
+            activeClassName="font-weight-bold"
+            to="/projectManager"
+          >
+            Project Manager
+          </NavLink>
+        </div>
       </div>
       <div className="feature">
         <div>

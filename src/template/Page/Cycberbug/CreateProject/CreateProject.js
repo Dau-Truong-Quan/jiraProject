@@ -3,6 +3,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import { connect, useSelector, useDispatch } from "react-redux";
 import { withFormik, Form } from "formik";
 import * as Yup from "yup";
+import { CREATE_PROJECT_SAGA } from "../../../../constants/CyberBugs/CyberBug";
 const CreateProject = (props) => {
   const {
     values,
@@ -40,6 +41,7 @@ const CreateProject = (props) => {
         <div className="form-group">
           <p>Name</p>
           <input className="form-control" name="projectName" />
+          <div className="text-danger">{errors.projectName}</div>
         </div>
         <div className="form-group">
           <p>description</p>
@@ -120,8 +122,10 @@ const createPorjectForm = withFormik({
       .max(10, "projectName have max 10 characters"),
   }),
   handleSubmit: (values, { props, setSubmitting }) => {
-    console.log("props", values);
-    console.log("ok");
+    props.dispatch({
+      type: CREATE_PROJECT_SAGA,
+      newProject: values,
+    });
   },
   displayName: "CreateForm",
 })(CreateProject);
