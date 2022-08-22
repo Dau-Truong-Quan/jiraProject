@@ -17,8 +17,9 @@ import { setHistory } from "./redux/history/HistoryRedux";
 import { CycberBugTemplate } from "./template/HomeTemplate/CycberBugTemplate";
 import indexCycberbug from "./template/HomeTemplate/indexCycberbug";
 import CreateProject from "./template/Page/Cycberbug/CreateProject/CreateProject";
-import NewProject from "./template/Page/Cycberbug/CreateProject/NewProject";
+
 import ProjectManager from "./template/Page/ProjectManager/ProjectManager";
+import DrawerCycberbug from "./HOC/CyberBug/DrawerCycberbug";
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -27,11 +28,10 @@ function App() {
   }, []);
   return (
     <>
+      <DrawerCycberbug />
       <Switch>
         <LoginTemplate exact path="/login" Component={Login} />
-        <LoginTemplate exact path="/new" Component={NewProject} />
-        <HomeTemplate exact path="/" Component={Form} />
-        <CycberBugTemplate exact path="/cycberBug" Component={indexCycberbug} />
+        <CycberBugTemplate exact path="/" Component={indexCycberbug} />
         <CycberBugTemplate
           exact
           path="/projectManager"

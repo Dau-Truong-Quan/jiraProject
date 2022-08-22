@@ -1,11 +1,10 @@
-import { Button, Checkbox, Input } from "antd";
 import React, { useEffect, useRef } from "react";
-import { withFormik, Form } from "formik";
-import { LockOutlined, TwitterOutlined, UserOutlined } from "@ant-design/icons";
-import * as Yup from "yup";
-import { connect, useDispatch, useSelector } from "react-redux/es/exports";
 import { Editor } from "@tinymce/tinymce-react";
-const NewProject = (props) => {
+import { connect, useSelector, useDispatch } from "react-redux";
+import { withFormik, Form } from "formik";
+import * as Yup from "yup";
+import { CREATE_PROJECT_SAGA } from "../../constants/CyberBugs/CyberBug";
+const FormEditProject = (props) => {
   const {
     values,
     touched,
@@ -15,15 +14,10 @@ const NewProject = (props) => {
     handleSubmit,
     setFieldValue,
   } = props;
-  console.log(props);
   const arr = useSelector((state) => state.ProjectCategoryRedux.arrCategory);
-  console.log(props);
+
   const editorRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
+
   const handleEditorChange = (content, editor) => {
     console.log(content);
     setFieldValue("description", content);
@@ -31,23 +25,34 @@ const NewProject = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch({ type: "GET__ALL__PROJECT__CATEGORY" });
+    dispatch({ type: "SUBMIT_EDIT_DRAWER", Submition: handleSubmit });
   }, []);
   return (
-    <div className="container m-5">
+    <div className=" m-5">
       <h3>Create Project</h3>
-      <form className="container" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onChange={handleChange}>
+        <div className="form-group">
+          <p>Project id</p>
+          <input className="form-control" value={values.id} name="id" />
+        </div>
         <div className="form-group">
           <p>Name</p>
-          <input className="form-control" name="projectName" />
+          <input
+            className="form-control"
+            value={values.projectName}
+            name="projectName"
+          />
           <div className="text-danger">{errors.projectName}</div>
         </div>
+
         <div className="form-group">
           <p>description</p>
           <Editor
             name="description"
             apiKey="your-api-key"
             onInit={(evt, editor) => (editorRef.current = editor)}
-            initialValue=""
+            initialValue={values.description}
+            value={values.description}
             init={{
               height: 500,
               menubar: false,
@@ -83,7 +88,11 @@ const NewProject = (props) => {
           />
         </div>
         <div className="form-group">
-          <select className="form-control" name="categoryId">
+          <select
+            className="form-control"
+            name="categoryId"
+            value={values.categoryId}
+          >
             {arr.map((item, index) => {
               return (
                 <option value={item.id} key={index}>
@@ -93,28 +102,41 @@ const NewProject = (props) => {
             })}
           </select>
         </div>
-        <button className="btn btn-outline-primary" htmlType="submit">
-          Create project
-        </button>
       </form>
     </div>
   );
 };
 
-const ProjectNew = withFormik({
-  mapPropsToValues: () => ({ email: "", password: "" }),
-  validationSchema: Yup.object().shape({
-    // Validate form field
-    email: Yup.string()
-      .required("Email is required")
-      .min(5, "Email must have min 5 characters")
-      .max(10, "Email have max 10 characters"),
-  }),
-  handleSubmit: ({ email, passWord }, { props, setSubmitting }) => {
-    console.log("ok");
+const createPorjectForm = withFormik({
+  enableReinitialize: true,
+  mapPropsToValues: (props) => {
+    const { projectEdit } = props;
+    return {
+      id: projectEdit.id,
+      projectName: projectEdit.projectName,
+      description: projectEdit.description,
+      categoryId: projectEdit.categoryId,
+    };
   },
-
-  displayName: "BasicForm",
-})(NewProject);
-
-export default connect()(ProjectNew);
+  validationSchema: Yup.object().shape({
+    // // Validate form field
+    // projectName2: Yup.string()
+    //   .required("projectName is required")
+    //   .min(5, "projectName must have min 5 characters")
+    //   .max(10, "projectName have max 10 characters"),
+  }),
+  handleSubmit: (values, { props, setSubmitting }) => {
+    props.dispatch({
+      type: "UPDATE_PROJECT_SAGA",
+      projectUpdate: values,
+    });
+  },
+  displayName: "Update Form",
+})(FormEditProject);
+const mapStateToProps = (state) => {
+  return {
+    arrCategory: state.ProjectCategoryRedux.arrCategory,
+    projectEdit: state.DetailProject.projectEdit,
+  };
+};
+export default connect(mapStateToProps)(createPorjectForm);

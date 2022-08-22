@@ -1,34 +1,54 @@
-import React from "react";
-
+import {
+  BarsOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  PlusOutlined,
+  SearchOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from "@ant-design/icons";
+import { Layout, Menu } from "antd";
+import React, { useState } from "react";
+const { Header, Sider, Content } = Layout;
 const SidebarCycberbug = () => {
+  const [collapsed, setCollapsed] = useState(false);
   return (
-    <div className="sideBar">
-      <div className="sideBar-top">
-        <div className="sideBar-icon">
-          <i className="fab fa-jira" />
+    <div>
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        style={{ height: "100%" }}
+      >
+        <div>
+          <BarsOutlined
+            className="text-right"
+            onClick={() => {
+              setCollapsed(!collapsed);
+            }}
+            style={{ color: "white", fontSize: 20, marginLeft: "31px" }}
+          />
         </div>
-        <div
-          className="sideBar-icon"
-          data-toggle="modal"
-          data-target="#searchModal"
-          style={{ cursor: "pointer" }}
-        >
-          <i className="fa fa-search" />
-          <span className="title">SEARCH ISSUES</span>
-        </div>
-        <div className="sideBar-icon">
-          <i className="fa fa-plus" />
-          <span className="title">CREATE ISSUES</span>
-        </div>
-      </div>
-      <div className="sideBar-bottom">
-        <div className="sideBar-icon">
-          <i className="fa fa-question-circle" />
-          <span className="title">ABOUT</span>
-        </div>
-      </div>
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={["1"]}
+          items={[
+            {
+              key: "1",
+              icon: <PlusOutlined style={{ fontSize: 20 }} />,
+              label: "Create issue",
+            },
+            {
+              key: "2",
+              icon: <SearchOutlined style={{ fontSize: 20 }} />,
+              label: "Serach",
+            },
+          ]}
+        />
+      </Sider>
     </div>
   );
 };
-
 export default SidebarCycberbug;

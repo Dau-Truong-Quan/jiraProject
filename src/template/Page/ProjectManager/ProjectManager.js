@@ -1,34 +1,22 @@
-import { Button, Space, Table } from "antd";
-import React, { useState } from "react";
-const data = [
-  {
-    key: "1",
-    name: "John Brown",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    key: "2",
-    name: "Jim Green",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    key: "3",
-    name: "Joe Black",
-    age: 32,
-    address: "Sidney No. 1 Lake Park",
-  },
-  {
-    key: "4",
-    name: "Jim Red",
-    age: 32,
-    address: "London No. 2 Lake Park",
-  },
-];
+import {
+  DeleteOutlined,
+  EditOutlined,
+  PlusCircleOutlined,
+} from "@ant-design/icons";
+import { Button, Space, Table, Tag } from "antd";
+import React, { useEffect, useState } from "react";
+import { connect, useSelector, useDispatch } from "react-redux";
+import FormEditProject from "../../../component/Form/FormEditProject";
+import { message, Popconfirm } from "antd";
+
 const ProjectManager = () => {
   const [filteredInfo, setFilteredInfo] = useState({});
   const [sortedInfo, setSortedInfo] = useState({});
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({ type: "GET_LIST_PROJECT_SAGA" });
+  }, []);
+  const arr = useSelector((state) => state.ProjectListRedux.projectList);
 
   const handleChange = (pagination, filters, sorter) => {
     console.log("Various parameters", pagination, filters, sorter);
@@ -54,42 +42,81 @@ const ProjectManager = () => {
 
   const columns = [
     {
-      title: "id",
-      dataIndex: "id",
-      key: "id",
-      filteredValue: filteredInfo.name || null,
-      onFilter: (value, record) => record.name.includes(value),
-      sorter: (a, b) => a.name.length - b.name.length,
-      sortOrder: sortedInfo.columnKey === "name" ? sortedInfo.order : null,
-      ellipsis: true,
+      title: "projectName",
+      dataIndex: "projectName",
+      key: "projectName",
+      sorter: (item1, item2) => {
+        let projectname1 = item1.projectName?.trim().toLowerCase();
+        let projectname2 = item2.projectName?.trim().toLowerCase();
+        if (item1.projectName < item2.projectName) {
+          return -1;
+        }
+        return 1;
+      },
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "categoryName",
+      dataIndex: "categoryName",
+      key: "categoryName",
       sorter: (a, b) => a.age - b.age,
       sortOrder: sortedInfo.columnKey === "age" ? sortedInfo.order : null,
       ellipsis: true,
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-      filters: [
-        {
-          text: "London",
-          value: "London",
-        },
-        {
-          text: "New York",
-          value: "New York",
-        },
-      ],
-      filteredValue: filteredInfo.address || null,
-      onFilter: (value, record) => record.address.includes(value),
-      sorter: (a, b) => a.address.length - b.address.length,
-      sortOrder: sortedInfo.columnKey === "address" ? sortedInfo.order : null,
-      ellipsis: true,
+      title: "description",
+      dataIndex: "description",
+      key: "description",
+      render: (text, record, index) => {
+        return <div dangerouslySetInnerHTML={{ __html: text }} />;
+      },
+    },
+
+    {
+      title: "description",
+      dataIndex: "description",
+      key: "description",
+      render: (text, record, index) => {
+        return <Tag color="cyan">{record.creator.name}</Tag>;
+      },
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle">
+          <EditOutlined
+            onClick={() => {
+              const action = {
+                type: "OPEN_FORM_EDIT_DRAWER",
+                Component: <FormEditProject />,
+              };
+
+              dispatch(action);
+
+              dispatch({
+                type: "EDIT_PROJECT",
+                projectEdit: record,
+              });
+            }}
+          />
+
+          <Popconfirm
+            title="Are you sure to delete this task?"
+            onConfirm={() => {
+              const action = {
+                type: "DELETE_PROJECT_SAGA",
+                idProject: record.id,
+              };
+
+              dispatch(action);
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <DeleteOutlined />
+          </Popconfirm>
+        </Space>
+      ),
     },
   ];
   return (
@@ -104,7 +131,7 @@ const ProjectManager = () => {
         <Button onClick={clearFilters}>Clear filters</Button>
         <Button onClick={clearAll}>Clear filters and sorters</Button>
       </Space>
-      <Table columns={columns} dataSource={data} onChange={handleChange} />
+      <Table columns={columns} dataSource={arr} onChange={handleChange} />
     </div>
   );
 };
