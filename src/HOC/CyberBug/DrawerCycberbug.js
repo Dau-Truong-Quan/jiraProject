@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 const { Option } = Select;
 const DrawerCycberbug = () => {
   const dispatch = useDispatch();
-  const { visible, ComponentDrawer, CallbackSubmit } = useSelector(
+  const { visible, ComponentDrawer, CallbackSubmit, title } = useSelector(
     (state) => state.DrawerCycberbugReducer
   );
   const showDrawer = () => {
@@ -29,7 +29,7 @@ const DrawerCycberbug = () => {
   return (
     <>
       <Drawer
-        title="Create a new account"
+        title={title}
         width={720}
         visible={visible}
         bodyStyle={{

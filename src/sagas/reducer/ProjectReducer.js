@@ -6,12 +6,18 @@ const initialState = {
     description: "string",
     categoryId: "2",
   },
+  projectDetail: {},
 };
 
 export const DetailProject = (state = initialState, action) => {
   switch (action.type) {
     case "EDIT_PROJECT": {
       state.projectEdit = action.projectEdit;
+      return { ...state };
+    }
+    case "PUT_PROJECT_DETAIL": {
+      state.projectDetail = action.projectDetail;
+      console.log(state.projectDetail);
       return { ...state };
     }
 

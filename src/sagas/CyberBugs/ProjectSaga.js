@@ -30,7 +30,6 @@ function* createProjectSaga(action) {
     });
 
     // let history = yield select((state) => state.HistoryReducer.history);
-    history.push("/");
   } catch (error) {
     if (error.response) {
       console.log(error.response);
@@ -121,4 +120,29 @@ function* deleteProjectSaga(action) {
 
 export function* theoDoideleteProjectSaga() {
   yield takeLatest("DELETE_PROJECT_SAGA", deleteProjectSaga);
+}
+
+function* getProjectDetail(action) {
+  try {
+    const { data, status } = yield call(() =>
+      projectService.getProjectDetail(action.idProject)
+    );
+    console.log(data);
+    yield put({
+      type: "PUT_PROJECT_DETAIL",
+      projectDetail: data.content,
+    });
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+    } else if (error.request) {
+      console.log("request");
+    } else if (error.message) {
+      console.log(error.message);
+    }
+  }
+}
+
+export function* theoDoigetProjectDetail() {
+  yield takeLatest("GET_PROJECT_DETAIL", getProjectDetail);
 }

@@ -6,10 +6,14 @@ import * as ProjectSaga from "./CyberBugs/ProjectSaga";
 export function* rootSaga() {
   yield all([
     Cyberbug.theoDoiSignin(),
+    Cyberbug.theoDoigetUser(),
+    Cyberbug.theoDoiremoveUserProjectSaga(),
+    Cyberbug.theoDoiaddUserProjectSaga(),
     ProjectCategory.theodoiGetAllCategory(),
     ProjectSaga.theoDoicreateProjectSaga(),
     ProjectSaga.theoDoigetListProjectSaga(),
     ProjectSaga.theoDoiupdateProjectSaga(),
     ProjectSaga.theoDoideleteProjectSaga(),
+    ProjectSaga.theoDoigetProjectDetail(),
   ]);
 }

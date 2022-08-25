@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import "antd/dist/antd.min.css";
 
 import { Provider } from "react-redux";
-import { storeToolkit } from "./redux/storeToolkit";
 import { BrowserRouter, Router } from "react-router-dom";
 import { history } from "./util/lib/history";
 import store from "./sagas/store";

@@ -1,26 +1,18 @@
-import axios from "axios";
-import { BASE_URL, httpService, TOKEN_CYBERSOFT } from "./configURL";
+import { baseService } from "./baseService";
 
-export const userService = {
-  dangNhap: (userlogin) => {
-    // return axios({
-    //   method: "POST",
-    //   url: `${BASE_URL}/api/QuanLyNguoiDung/DangNhap`,
-    //   data: dataLogin,
-    //   headers: {
-    //     TokenCybersoft: TOKEN_CYBERSOFT,
-    //   },
-    // });
-    return httpService.post("/Users/signin", userlogin);
-  },
+export class UserService extends baseService {
+  constructor() {
+    super();
+  }
+  getUser = (keyword) => {
+    return this.get(`Users/getUser?keyword=${keyword}`);
+  };
+  assignUserProject = (userProject) => {
+    return this.post(`Project/assignUserProject`, userProject);
+  };
+  deleteUserFromProject = (userProject) => {
+    return this.post(`Project/removeUserFromProject`, userProject);
+  };
+}
 
-  getUserList: () => {
-    return httpService.get("/api/QuanLyNguoiDung/LayDanhSachNguoiDung");
-  },
-
-  deleteUser: (taiKhoan) => {
-    return httpService.delete(
-      `/api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`
-    );
-  },
-};
+export const userService2 = new UserService();

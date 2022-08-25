@@ -6,8 +6,6 @@ import * as Yup from "yup";
 import { connect } from "react-redux/es/exports";
 import { USER_SIGN_API } from "../../../constants/CyberBugs/CyberBug";
 import { signinCyberbugAction } from "../../../actions/CyberBugsAction";
-import { tangSoLuong } from "../../../redux/demoSlice";
-import { setUserLoginService } from "../../../services/userSlice";
 const Login = (props) => {
   const { values, touched, errors, handleChange, handleBlur, handleSubmit } =
     props;

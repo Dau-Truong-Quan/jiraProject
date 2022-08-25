@@ -1,22 +1,29 @@
 import React from "react";
 
-const InforCyberBug = () => {
+const InforCyberBug = (props) => {
+  const { projectDetail } = props;
+  const renderAvatar = () => {
+    return projectDetail.members?.map((user, index) => {
+      return (
+        <div className="avatar">
+          <img src={user.avatar} alt={user.avatar} />
+        </div>
+      );
+    });
+  };
+
   return (
     <div className="info" style={{ display: "flex" }}>
+      <section>
+        <div dangerouslySetInnerHTML={{ __html: projectDetail.description }} />;
+      </section>
       <div className="search-block">
         <input className="search" />
         <i className="fa fa-search" />
       </div>
+
       <div className="avatar-group" style={{ display: "flex" }}>
-        <div className="avatar">
-          <img src={require("../../../assets/img/download (1).jfif")} alt />
-        </div>
-        <div className="avatar">
-          <img src={require("../../../assets/img/download (2).jfif")} alt />
-        </div>
-        <div className="avatar">
-          <img src={require("../../../assets/img/download (3).jfif")} alt />
-        </div>
+        {renderAvatar()}
       </div>
       <div style={{ marginLeft: 20 }} className="text">
         Only My Issues

@@ -16,7 +16,7 @@ function* getAllCategory(action) {
   yield delay(500);
   try {
     const { data, status } = yield cyberbugsService.getAllProductCategory();
-    console.log(data);
+
     yield put({
       type: "ADD_ARRCATEGORY",
       data: data.content,
