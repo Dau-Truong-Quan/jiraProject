@@ -21,6 +21,7 @@ import {
   GET_ALL_PROJECT,
   GET_ALL_PROJECT_SAGA,
 } from "../../util/constant/ProjectConstant";
+import { GET_USER_BY_PRODUCTID_SAGA } from "../../util/constant/UserContant";
 function* createProjectSaga(action) {
   yield delay(500);
   try {
@@ -158,6 +159,10 @@ function* getAllProject(action) {
     yield put({
       type: GET_ALL_PROJECT,
       arrProject: data.content,
+    });
+    yield put({
+      type: GET_USER_BY_PRODUCTID_SAGA,
+      idProject: data.content[0]?.id,
     });
   } catch (error) {
     if (error.response) {

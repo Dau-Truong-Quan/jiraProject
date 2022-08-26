@@ -13,6 +13,10 @@ import { cyberbugsService } from "../../services/cyberbugsService";
 import { TOKEN_CYBERSOFT, USER_LOGIN } from "../../services/configURL";
 import { history } from "../../util/lib/history";
 import { userService2 } from "../../services/userService";
+import {
+  GET_USER_BY_PRODUCTID,
+  GET_USER_BY_PRODUCTID_SAGA,
+} from "../../util/constant/UserContant";
 function* signinSaga(action) {
   yield delay(500);
   try {
@@ -117,4 +121,37 @@ function* removeUserProjectSaga(action) {
 
 export function* theoDoiremoveUserProjectSaga() {
   yield takeLatest("REMOVE_USER_PROJECT_SAGA", removeUserProjectSaga);
+}
+function* getUserByProjectId(action) {
+  yield delay(500);
+  try {
+    console.log(action.userProject);
+    const { data, status } = yield userService2.getUserByProjectId(
+      action.idProject
+    );
+
+    console.log(data.content);
+    yield put({
+      type: GET_USER_BY_PRODUCTID,
+      arrUser: data.content,
+    });
+
+    console.log(data);
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+      yield put({
+        type: GET_USER_BY_PRODUCTID,
+        arrUser: [],
+      });
+    } else if (error.request) {
+      console.log("request");
+    } else if (error.message) {
+      console.log(error.message);
+    }
+  }
+}
+
+export function* theoDoigetUserByProjectId() {
+  yield takeLatest(GET_USER_BY_PRODUCTID_SAGA, getUserByProjectId);
 }

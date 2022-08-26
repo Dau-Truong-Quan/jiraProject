@@ -7,6 +7,8 @@ import { connect, useSelector, useDispatch } from "react-redux";
 import { GET_ALL_PROJECT_SAGA } from "../../util/constant/ProjectConstant";
 import { GET_ALL_TASKTYPE_SAGA } from "../../util/constant/TaskTypeConstant";
 import { GET_ALL_PRIORITY_SAGA } from "../../util/constant/PriorityConstant";
+import { GET_ALL_STATUS_SAGA } from "../../util/constant/StatusConstant";
+import { GET_USER_BY_PRODUCTID_SAGA } from "../../util/constant/UserContant";
 const { Option } = Select;
 const children = [];
 
@@ -19,9 +21,9 @@ const FormCreateTask = (props) => {
   const arrProject = useSelector((state) => state.ProjectListRedux.arrProject);
   const arrTaskType = useSelector((state) => state.TaskTypeReducer.arrTaskType);
   const arrPriority = useSelector((state) => state.PriorityReducer.arrPriority);
-  const userSearch = useSelector(
-    (state) => state.UserCyberBugReducer.userSearch
-  );
+  const arrStatus = useSelector((state) => state.StatusReducer.arrStatus);
+  const arrUser = useSelector((state) => state.UserCyberBugReducer.arrUser);
+
   const {
     values,
     touched,
@@ -31,12 +33,9 @@ const FormCreateTask = (props) => {
     handleSubmit,
     setFieldValue,
   } = props;
-  const userOption = userSearch?.map((item, index) => {
+  const userOption = arrUser?.map((item, index) => {
     return { value: item.userId, label: item.name };
   });
-  const handleEditorChange = (content, editor) => {
-    console.log(content);
-  };
   const [size, setSize] = useState("middle");
   const [timeTracking, setTimeTracking] = useState({
     timeTrackingSpent: 5,
@@ -46,6 +45,8 @@ const FormCreateTask = (props) => {
     dispatch({ type: GET_ALL_PROJECT_SAGA });
     dispatch({ type: GET_ALL_TASKTYPE_SAGA });
     dispatch({ type: GET_ALL_PRIORITY_SAGA });
+    dispatch({ type: GET_ALL_STATUS_SAGA });
+    dispatch({ type: "SUBMIT_CREATE_TASK", Submition: handleSubmit });
     dispatch({ type: "GET_USER_API", keyword: "" });
   }, []);
 
@@ -56,7 +57,13 @@ const FormCreateTask = (props) => {
         <select
           name="projectId"
           className="form-control"
-          onChange={handleChange}
+          onChange={(e) => {
+            dispatch({
+              type: GET_USER_BY_PRODUCTID_SAGA,
+              idProject: e.target.value,
+            });
+            setFieldValue("projectId", e.target.value);
+          }}
         >
           {arrProject.map((project, index) => {
             return (
@@ -76,13 +83,30 @@ const FormCreateTask = (props) => {
         />
       </div>
       <div className="form-group">
+        <p>Status</p>
+        <select
+          name="statusId"
+          className="form-control"
+          onChange={handleChange}
+        >
+          {arrStatus.map((status, index) => {
+            return (
+              <option key={index} value={status.statusId}>
+                {status.statusName}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+      <div className="form-group">
         <div className="row">
           <div className="col-6">
-            <p>Project</p>
+            <p>Priority</p>
             <select
               name="priorityId"
               className="form-control"
               onSubmit={handleSubmit}
+              onChange={handleChange}
             >
               {arrPriority.map((priority, index) => {
                 return (
@@ -99,6 +123,7 @@ const FormCreateTask = (props) => {
               name="typeId"
               className="form-control"
               onSubmit={handleSubmit}
+              onChange={handleChange}
             >
               {arrTaskType.map((taskType, index) => {
                 return (
@@ -259,39 +284,34 @@ const FormCreateTask = (props) => {
 const createTaskForm = withFormik({
   enableReinitialize: true,
   mapPropsToValues: (props) => {
+    const { arrProject, arrTaskType, arrPriority, arrStatus } = props;
+
     return {
       taskName: "",
       description: "",
-      statusId: "",
+      statusId: arrStatus[0]?.statusId,
       originalEstimate: 0,
       timeTrackingSpent: 0,
       timeTrackingRemaining: 0,
-      projectId: 0,
-      typeId: 0,
-      priorityId: 0,
+      projectId: arrProject[0]?.id,
+      typeId: arrTaskType[0]?.id,
+      priorityId: arrPriority[0]?.priorityId,
       listUserAsign: [],
     };
   },
-  validationSchema: Yup.object().shape({
-    // // Validate form field
-    // projectName2: Yup.string()
-    //   .required("projectName is required")
-    //   .min(5, "projectName must have min 5 characters")
-    //   .max(10, "projectName have max 10 characters"),
-  }),
+  validationSchema: Yup.object().shape({}),
   handleSubmit: (values, { props, setSubmitting }) => {
-    // props.dispatch({
-    //   type: "UPDATE_PROJECT_SAGA",
-    //   projectUpdate: values,
-    // });
-    console.log(values);
+    props.dispatch({ type: "CREATE_TASK_SAGA", taskObject: values });
   },
   displayName: "Create task form",
 })(FormCreateTask);
-// const mapStateToProps = (state) => {
-//   return {
-//     arrCategory: state.ProjectCategoryRedux.arrCategory,
-//     projectEdit: state.DetailProject.projectEdit,
-//   };
-// };
-export default connect()(createTaskForm);
+
+const mapStateToProps = (state) => {
+  return {
+    arrProject: state.ProjectListRedux.arrProject,
+    arrTaskType: state.TaskTypeReducer.arrTaskType,
+    arrPriority: state.PriorityReducer.arrPriority,
+    arrStatus: state.StatusReducer.arrStatus,
+  };
+};
+export default connect(mapStateToProps)(createTaskForm);

@@ -20,7 +20,7 @@ import { priorityService } from "../../services/PriorityService";
 function* getAllPriority(action) {
   try {
     const { data, status } = yield call(() => priorityService.getAllPriority());
-    console.log(data);
+
     yield put({
       type: GET_ALL_PRIORITY,
       arrPriority: data.content,

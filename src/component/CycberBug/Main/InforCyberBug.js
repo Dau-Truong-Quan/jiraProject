@@ -5,7 +5,7 @@ const InforCyberBug = (props) => {
   const renderAvatar = () => {
     return projectDetail.members?.map((user, index) => {
       return (
-        <div className="avatar">
+        <div className="avatar" key={index}>
           <img src={user.avatar} alt={user.avatar} />
         </div>
       );

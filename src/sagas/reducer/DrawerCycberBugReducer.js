@@ -28,6 +28,10 @@ export const DrawerCycberbugReducer = (state = initialState, action) => {
       console.log(action);
       return { ...state, CallbackSubmit: action.Submition };
     }
+    case "SUBMIT_CREATE_TASK": {
+      console.log(action);
+      return { ...state, CallbackSubmit: action.Submition };
+    }
     case "OPEN_FORM_CREATE_TASK": {
       console.log(action.Component);
       return {

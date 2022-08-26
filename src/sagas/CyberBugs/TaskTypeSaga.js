@@ -15,7 +15,7 @@ import {
 function* getAllTaskType(action) {
   try {
     const { data, status } = yield call(() => taskTypeService.getAllTaskType());
-    console.log(data);
+
     yield put({
       type: GET_ALL_TASKTYPE,
       arrTaskType: data.content,

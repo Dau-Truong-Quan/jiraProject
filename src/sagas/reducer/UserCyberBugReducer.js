@@ -1,4 +1,5 @@
 import { USER_LOGIN } from "../../services/configURL";
+import { GET_USER_BY_PRODUCTID } from "../../util/constant/UserContant";
 
 let usLogin = {};
 
@@ -16,8 +17,10 @@ export const UserCyberBugReducer = (state = stateDefault, action) => {
       state.userLogin = action.userLogin;
     }
     case "GET_USER_SEARCH": {
-      console.log("ok");
       state.userSearch = action.userSearch;
+    }
+    case GET_USER_BY_PRODUCTID: {
+      state.arrUser = action.arrUser;
     }
     default:
       return { ...state };

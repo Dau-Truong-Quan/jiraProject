@@ -90,7 +90,7 @@ const ModelCycberbug = () => {
                     <h6>Comment</h6>
                     <div className="block-comment" style={{ display: "flex" }}>
                       <div className="avatar">
-                        <img src="./assets/img/download (1).jfif" alt />
+                        <img src="./assets/img/download (1).jfif" alt="true" />
                       </div>
                       <div className="input-comment">
                         <input type="text" placeholder="Add a comment ..." />
@@ -121,7 +121,10 @@ const ModelCycberbug = () => {
                           style={{ display: "flex" }}
                         >
                           <div className="avatar">
-                            <img src="./assets/img/download (1).jfif" alt />
+                            <img
+                              src="./assets/img/download (1).jfif"
+                              alt="true"
+                            />
                           </div>
                           <div>
                             <p style={{ marginBottom: 5 }}>
@@ -158,7 +161,10 @@ const ModelCycberbug = () => {
                     <div style={{ display: "flex" }}>
                       <div style={{ display: "flex" }} className="item">
                         <div className="avatar">
-                          <img src="./assets/img/download (1).jfif" alt />
+                          <img
+                            src="./assets/img/download (1).jfif"
+                            alt="true"
+                          />
                         </div>
                         <p className="name">
                           Pickle Rick
@@ -178,7 +184,7 @@ const ModelCycberbug = () => {
                     <h6>REPORTER</h6>
                     <div style={{ display: "flex" }} className="item">
                       <div className="avatar">
-                        <img src="./assets/img/download (1).jfif" alt />
+                        <img src="./assets/img/download (1).jfif" alt="true" />
                       </div>
                       <p className="name">
                         Pickle Rick
