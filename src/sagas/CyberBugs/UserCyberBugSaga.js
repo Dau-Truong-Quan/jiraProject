@@ -12,7 +12,7 @@ import { USER_SIGN_API } from "../../constants/CyberBugs/CyberBug";
 import { cyberbugsService } from "../../services/cyberbugsService";
 import { TOKEN_CYBERSOFT, USER_LOGIN } from "../../services/configURL";
 import { history } from "../../util/lib/history";
-import { userService2 } from "../../services/UserService";
+import { userService2 } from "../../services/userService";
 function* signinSaga(action) {
   yield delay(500);
   try {
@@ -51,7 +51,6 @@ function* getUser(action) {
       type: "GET_USER_SEARCH",
       userSearch: data.content,
     });
-    console.log(data);
   } catch (error) {
     if (error.response) {
       console.log(error.response);
@@ -69,7 +68,6 @@ export function* theoDoigetUser() {
 function* addUserProjectSaga(action) {
   yield delay(500);
   try {
-    console.log(action.userProject);
     const { data, status } = yield userService2.assignUserProject(
       action.userProject
     );

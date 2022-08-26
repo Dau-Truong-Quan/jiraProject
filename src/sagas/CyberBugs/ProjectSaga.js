@@ -17,6 +17,10 @@ import { TOKEN_CYBERSOFT, USER_LOGIN } from "../../services/configURL";
 import { history } from "../../util/lib/history";
 import { projectService } from "../../services/ProjectService";
 import { NotificationWithIcon } from "../../util/Notification/NotificationCycberbug";
+import {
+  GET_ALL_PROJECT,
+  GET_ALL_PROJECT_SAGA,
+} from "../../util/constant/ProjectConstant";
 function* createProjectSaga(action) {
   yield delay(500);
   try {
@@ -145,4 +149,27 @@ function* getProjectDetail(action) {
 
 export function* theoDoigetProjectDetail() {
   yield takeLatest("GET_PROJECT_DETAIL", getProjectDetail);
+}
+
+function* getAllProject(action) {
+  try {
+    const { data, status } = yield call(() => projectService.getAllProject());
+    console.log(data);
+    yield put({
+      type: GET_ALL_PROJECT,
+      arrProject: data.content,
+    });
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response);
+    } else if (error.request) {
+      console.log("request");
+    } else if (error.message) {
+      console.log(error.message);
+    }
+  }
+}
+
+export function* theodoigetAllProject() {
+  yield takeLatest(GET_ALL_PROJECT_SAGA, getAllProject);
 }

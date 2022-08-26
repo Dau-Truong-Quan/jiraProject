@@ -18,7 +18,7 @@ import CreateProject from "./template/Page/Cycberbug/CreateProject/CreateProject
 
 import ProjectManager from "./template/Page/ProjectManager/ProjectManager";
 import DrawerCycberbug from "./HOC/CyberBug/DrawerCycberbug";
-import IndexCycberbug from "./template/HomeTemplate/IndexCycberbug";
+import IndexCycberbug from "./template/HomeTemplate/indexCycberbug";
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();

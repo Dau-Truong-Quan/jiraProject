@@ -10,6 +10,9 @@ export class ProjectService extends baseService {
   getProjectDetail = (id) => {
     return this.get(`Project/getProjectDetail?id=${id}`);
   };
+  getAllProject = () => {
+    return this.get(`Project/getAllProject`);
+  };
 }
 
 export const projectService = new ProjectService();
