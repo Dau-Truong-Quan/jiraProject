@@ -30,6 +30,7 @@ function App() {
       <DrawerCycberbug />
       <Switch>
         <LoginTemplate exact path="/login" Component={Login} />
+        <CycberBugTemplate exact path="/" Component={ProjectManager} />
         <CycberBugTemplate
           exact
           path="/projectManager/:idProduct"

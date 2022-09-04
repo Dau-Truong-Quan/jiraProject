@@ -14,7 +14,7 @@ const MenuCycberBug = () => {
         </div>
       </div>
       <div className="control">
-        <div>
+        {/* <div>
           <i className="fa fa-credit-card" />
           <NavLink
             className="text-dark"
@@ -23,7 +23,7 @@ const MenuCycberBug = () => {
           >
             Cyber Board
           </NavLink>
-        </div>
+        </div> */}
         <div>
           <i className="fa fa-cog" />
           <NavLink
