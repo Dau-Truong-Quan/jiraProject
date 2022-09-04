@@ -25,6 +25,7 @@ function App() {
   useEffect(() => {
     dispatch({ type: "ADD_HISTORY", history: history });
   }, []);
+  const isLoggedIn = true;
   return (
     <>
       <DrawerCycberbug />
@@ -40,6 +41,16 @@ function App() {
           exact
           path="/projectManager"
           Component={ProjectManager}
+        />
+        <Route
+          path="/"
+          element={
+            isLoggedIn ? (
+              <Login />
+            ) : (
+              <CycberBugTemplate exact path="/" Component={ProjectManager} />
+            )
+          }
         />
         <CycberBugTemplate
           exact
