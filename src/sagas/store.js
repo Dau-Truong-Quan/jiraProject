@@ -23,6 +23,7 @@ const rootReducer = combineReducers({
   TaskTypeReducer,
   PriorityReducer,
   StatusReducer,
+  StatusReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(middleSaga));

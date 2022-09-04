@@ -1,6 +1,9 @@
 import React from "react";
-
+import { connect, useSelector, useDispatch } from "react-redux";
 const ModelCycberbug = () => {
+  const taskDetailModel = useSelector(
+    (state) => state.StatusReducer.taskDetailModel
+  );
   return (
     <div
       className="modal fade"

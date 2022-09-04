@@ -14,7 +14,7 @@ const InforCyberBug = (props) => {
 
   return (
     <div className="info" style={{ display: "flex" }}>
-      <section>
+      <section style={{ display: "block" }}>
         <div dangerouslySetInnerHTML={{ __html: projectDetail.description }} />;
       </section>
       <div className="search-block">
