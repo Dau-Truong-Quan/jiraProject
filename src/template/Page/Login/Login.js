@@ -11,8 +11,8 @@ const Login = (props) => {
     props;
   console.log(props);
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="d-flex mt-3">
+    <div>
+      {/* <div className="d-flex mt-3">
         <Input
           onChange={handleChange}
           style={{ width: "100%", minWidth: 300 }}
@@ -38,8 +38,47 @@ const Login = (props) => {
           icon={<TwitterOutlined />}
           size={"large"}
         />
+      </div> */}
+
+      <div className="wrapper">
+        <div className="logo">
+          <img
+            src="https://www.freepnglogos.com/uploads/twitter-logo-png/twitter-bird-symbols-png-logo-0.png"
+            alt
+          />
+        </div>
+        <div className="text-center mt-4 name">Twitter</div>
+        <form className="p-3 mt-3" onSubmit={handleSubmit}>
+          <div className="form-field d-flex align-items-center">
+            <span className="far fa-user" />
+
+            <input
+              onChange={handleChange}
+              name="email"
+              placeholder="email"
+              prefix={<UserOutlined />}
+            />
+            <div className="text-danger">{errors.email}</div>
+          </div>
+          <div className="form-field d-flex align-items-center">
+            <span className="fas fa-key" />
+            <input
+              onChange={handleChange}
+              name="passWord"
+              placeholder="passWord"
+              prefix={<LockOutlined />}
+            />
+          </div>
+
+          <Button className="btn mt-3" htmlType="submit">
+            Login
+          </Button>
+        </form>
+        <div className="text-center fs-6">
+          <a href="#">Forget password?</a> or <a href="#">Sign up</a>
+        </div>
       </div>
-    </form>
+    </div>
   );
 };
 
@@ -49,8 +88,7 @@ const LoginCyberBugsWithFormik = withFormik({
     // Validate form field
     email: Yup.string()
       .required("Email is required")
-      .min(5, "Email must have min 5 characters")
-      .max(10, "Email have max 10 characters"),
+      .min(1, "Email must have min 1 characters"),
   }),
   handleSubmit: ({ email, passWord }, { props, setSubmitting }) => {
     props.dispatch(signinCyberbugAction(email, passWord));
