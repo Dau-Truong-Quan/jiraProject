@@ -35,6 +35,8 @@ app.get("*", (req, res) => {
 
 // const port = process.env.PORT || 3000;
 // app.listen(port);
+
+// console.log("React.JS App is running on the port " + port);
 app.listen(process.env.PORT || 3000, function () {
   console.log(
     "Express server listening on port %d in %s mode",
@@ -42,5 +44,3 @@ app.listen(process.env.PORT || 3000, function () {
     app.settings.env
   );
 });
-
-console.log("React.JS App is running on the port " + port);
