@@ -12,34 +12,6 @@ const Login = (props) => {
   console.log(props);
   return (
     <div>
-      {/* <div className="d-flex mt-3">
-        <Input
-          onChange={handleChange}
-          style={{ width: "100%", minWidth: 300 }}
-          name="email"
-          size="large"
-          placeholder="email"
-          prefix={<UserOutlined />}
-        />
-        <div className="text-danger">{errors.email}</div>
-        <Input
-          onChange={handleChange}
-          style={{ width: "100%", minWidth: 300 }}
-          name="passWord"
-          size="large"
-          placeholder="passWord"
-          prefix={<LockOutlined />}
-        />
-
-        <Button htmlType="submit">Login</Button>
-        <Button
-          type="primary ml-3"
-          shape="circle"
-          icon={<TwitterOutlined />}
-          size={"large"}
-        />
-      </div> */}
-
       <div className="wrapper">
         <div className="logo">
           <img

@@ -45,28 +45,6 @@ const MenuCycberBug = () => {
           </NavLink>
         </div>
       </div>
-      <div className="feature">
-        <div>
-          <i className="fa fa-truck" />
-          <span>Releases</span>
-        </div>
-        <div>
-          <i className="fa fa-equals" />
-          <span>Issues and filters</span>
-        </div>
-        <div>
-          <i className="fa fa-paste" />
-          <span>Pages</span>
-        </div>
-        <div>
-          <i className="fa fa-location-arrow" />
-          <span>Reports</span>
-        </div>
-        <div>
-          <i className="fa fa-box" />
-          <span>Components</span>
-        </div>
-      </div>
     </div>
   );
 };

@@ -35,16 +35,7 @@ function App() {
         <LoginTemplate exact path="/login" Component={Login} />
         <CycberBugTemplate exact path="/" Component={ProjectManager} />
 
-        <Route
-          path="/"
-          element={
-            isLoggedIn ? (
-              <Login />
-            ) : (
-              <CycberBugTemplate exact path="/" Component={ProjectManager} />
-            )
-          }
-        />
+        {/* <Route path="/" element={isLoggedIn ? <Login /> : <></>} /> */}
         <CycberBugTemplate
           exact
           path="/projectManager/:idProduct"

@@ -52,7 +52,7 @@ const SidebarCycberbug = () => {
         >
           <Menu.Item
             key="1"
-            icon={<SearchOutlined style={{ fontSize: 20 }} />}
+            icon={<PlusOutlined style={{ fontSize: 20 }} />}
             onClick={() => {
               const action = {
                 type: "OPEN_FORM_CREATE_TASK",
@@ -64,9 +64,6 @@ const SidebarCycberbug = () => {
             }}
           >
             <span className="mb-2">Create task</span>
-          </Menu.Item>
-          <Menu.Item key="2" icon={<SearchOutlined style={{ fontSize: 20 }} />}>
-            <span className="mb-2">Search</span>
           </Menu.Item>
         </Menu>
       </Sider>
