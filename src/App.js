@@ -6,6 +6,7 @@ import {
   Routes,
   Switch,
   useHistory,
+  Navigate,
 } from "react-router-dom";
 import { HomeTemplate } from "./template/HomeTemplate/HomeTemplate";
 import Login from "./template/Page/Login/Login";
@@ -19,6 +20,7 @@ import CreateProject from "./template/Page/Cycberbug/CreateProject/CreateProject
 import ProjectManager from "./template/Page/ProjectManager/ProjectManager";
 import DrawerCycberbug from "./HOC/CyberBug/DrawerCycberbug";
 import IndexCycberbug from "./template/HomeTemplate/indexCycberbug";
+import { USER_LOGIN } from "./services/configURL";
 function App() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -32,6 +34,8 @@ function App() {
       <Switch>
         <LoginTemplate exact path="/login" Component={Login} />
         <CycberBugTemplate exact path="/" Component={ProjectManager} />
+
+        {/* <Route path="/" element={isLoggedIn ? <Login /> : <></>} /> */}
         <CycberBugTemplate
           exact
           path="/projectManager/:idProduct"
